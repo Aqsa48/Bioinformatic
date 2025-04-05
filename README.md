@@ -12,6 +12,9 @@ This application allows users to perform genomic sequence clustering using k-mea
 2. **Choose Clustering Parameters**: Select the number of clusters you want to create (e.g., 3 clusters).
 3. **View Results**: The app will display the clustered sequences and any association rules found.
 
+### Sample Dataset:
+You can use the sample genomic sequences file named `2021_sequences.csv` which is included in the folder for testing purposes. This file contains sequences that you can upload to the app for clustering and association rule mining.
+
 ## Application Access:
 You can access the app at the following URL:
 
