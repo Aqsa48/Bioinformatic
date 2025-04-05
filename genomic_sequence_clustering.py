@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori, association_rules
 
@@ -27,10 +26,9 @@ def clean_sequence(seq):
 
 def extract_codons_from_sequence(seq):
     codons = []
-    # Ensure that we only extract codons of exactly 3 nucleotides
-    for i in range(0, len(seq) - 2, 3):  # Adjusted to ensure no leftover partial codon
-        codon = seq[i:i+3]
-        if len(codon) == 3:  # Only accept full codons
+    for i in range(0, len(seq) - 2, 3):  # Ensure we extract full codons (3 nucleotides)
+        codon = seq[i:i+3]  # Extract a 3-nucleotide codon
+        if len(codon) == 3:  # Ensure it's a full codon
             codons.append(codon)
     return codons
 
@@ -66,7 +64,7 @@ def perform_association_rule_mining(processed_sequences, min_support=0.05, min_c
 
 # ---------------------- Streamlit UI ---------------------- #
 st.set_page_config(layout="wide")
-st.title("🔬 Genomic Sequence Clustering & Association Rules")
+st.title("🔬 Genetic Evolution of SARS-CoV-2  Clustering and Apriori Association Rule Mining")
 
 # Sidebar for dataset upload
 st.sidebar.header("📁 Upload Dataset")
@@ -165,7 +163,7 @@ if uploaded_file:
         codon_df.plot(kind='bar', ax=ax)
         ax.set_title('Top 10 Codons per Cluster')
         ax.set_xlabel('Codons')
-        ax.set_ylabel('Count of Codon')
+        ax.set_ylabel('Count of Codons')
         ax.set_xticklabels(codon_df.index, rotation=45)
         
         # Display the plot in Streamlit
@@ -177,10 +175,10 @@ if uploaded_file:
 
         # -------------------- Shortened Sequence (Association Rule Mining) -------------------- #
         st.sidebar.markdown("---")
-        run_rule_mining = st.sidebar.checkbox("Association Rule Mining for Shortened Sequences")
+        run_rule_mining = st.sidebar.checkbox("Association Rule Mining Few Rules")
 
         if run_rule_mining:
-            st.write("## 🔗 Association Rule Mining (Shortened Sequences)")
+            st.write("## 🔗 Association Rule Mining")
 
             min_support = st.sidebar.slider("Minimum Support", 0.01, 0.5, 0.08, 0.01)
             min_confidence = st.sidebar.slider("Minimum Confidence", 0.1, 1.0, 0.8, 0.05)
